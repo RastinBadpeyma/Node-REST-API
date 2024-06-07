@@ -10,6 +10,16 @@ async function GetAllArticle(req, res) {
     }
 }
 
+async function GetArticleByID(req ,res){
+   try {
+      const {id} = req.params;
+      const article = await Article.findById(id);
+      res.status(200).json(article);
+  } catch (error) {
+      res.status(500).json({message: error.message})
+  }
+}
+
 async function PostArticle(req,res){
     try {
       const {title , body } = req.body;
@@ -34,4 +44,5 @@ async function PostArticle(req,res){
 module.exports = {
    GetAllArticle,
    PostArticle,
+   GetArticleByID,
 }
