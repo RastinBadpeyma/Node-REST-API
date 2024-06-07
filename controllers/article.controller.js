@@ -67,9 +67,25 @@ async function UpdateArticle(req , res){
    }
 }
 
+
+async function DeleteArticle(req ,res){
+   try {
+      const {id} = req.params;
+
+      const existingArticle = await Article.findByIdAndDelete(id);
+      if(!existingArticle){
+       return res.status(400).json({message : `we could Not find any article with this ID: ${id}` });
+      }
+      res.status(200).json({message : `article with ID : ${id} was deleted`});
+    } catch (err) {
+      res.status(500).json({ message: err.message })
+    }
+}
+
 module.exports = {
    GetAllArticle,
    PostArticle,
    GetArticleByID,
    UpdateArticle,
+   DeleteArticle
 }
