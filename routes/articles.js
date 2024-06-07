@@ -5,6 +5,7 @@ const {
   GetAllArticle,
   PostArticle,
   GetArticleByID,
+  UpdateArticle
 } = require('./../controllers/article.controller');
 
 
@@ -12,7 +13,7 @@ const {
 ArticlesRouter.get('/' ,GetAllArticle);
 ArticlesRouter.get('/:id' , GetArticleByID)
 ArticlesRouter.post('/' ,PostArticle);
-
+ArticlesRouter.put('/:id' ,UpdateArticle)
 
 module.exports = ArticlesRouter;
 

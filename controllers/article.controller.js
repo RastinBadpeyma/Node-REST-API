@@ -41,8 +41,35 @@ async function PostArticle(req,res){
     }
 }
 
+async function UpdateArticle(req , res){
+   try {
+      const { id } = req.params;
+      const { title, body} = req.body;
+   
+      const existingArticle = await Article.findById(id);
+      if (!existingArticle) {
+          return res.status(400).json({ message: 'We could not find any article with the provided ID.' });
+      }
+   
+      if (title !== existingArticle.title) {
+          const existingArticle = await Article.findOne({ title });
+          if (existingArticle) {
+              return res.status(400).json({ message: 'Article already exists.' });
+          }
+      }
+
+   
+      const updatedArticle = await Article.findByIdAndUpdate(id, { title, body}, { new: true });
+      res.status(200).json({ message: "Article was updated" });
+   } catch (error) {
+      console.error(error); // Log the error for debugging
+      res.status(500).json({ message: "An unexpected error occurred while updating the article." });
+   }
+}
+
 module.exports = {
    GetAllArticle,
    PostArticle,
    GetArticleByID,
+   UpdateArticle,
 }
