@@ -5,9 +5,11 @@ const mongoose = require('mongoose');
 const { mongoConnect } = require('./services/mongo');
 require('dotenv').config();
 const server = http.createServer(app);
+const ArticlesRouter = require('./routes/articles');
+
 
 app.use(express.json());
-
+app.use('/articles', ArticlesRouter);
 
 
 async function startServer() {
